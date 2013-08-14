@@ -1,0 +1,2 @@
+<p><a class="button" href="#" onclick="loadcont('articles/meta-blog', 'content');">Meta-blog</a></p>
+<p><a class="button" href="#" onclick="loadcont('articles/about', 'content');">About</a></p>

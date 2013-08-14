@@ -1,0 +1,11 @@
+#################
+## Files to ignore
+#################
+
+
+
+*.log
+*.py[co]
+
+node_modules/
+
