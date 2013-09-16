@@ -8,4 +8,7 @@
 *.py[co]
 
 node_modules/
+tmp/
+log/
+static/
 

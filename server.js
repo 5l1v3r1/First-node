@@ -1,5 +1,5 @@
 var http = require("http");
-var port = 8888;
+var port = 80;
 var url = require("url");
 var l = require("./logger.js");
 
@@ -8,7 +8,8 @@ function start_server(route) {
 	// handle some request
 	function requesthandle(request, response) {
 		// log request with headers as metadata
-		l.logger.info(">R " + request.connection.remoteAddress + ":" + request.method + ":" + request.url + ":" + request.httpVersion + "|>H ", request.headers);
+		l.logger.info(request.connection.remoteAddress + ":" + request.method + ":" + request.url + ":" + request.httpVersion);
+		l.logger.info(request.headers);
 		// send requested path to router.js
 	    var pathname = url.parse(request.url).pathname;
 	    route(pathname, response);

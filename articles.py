@@ -34,7 +34,7 @@ def get_articles():
 	return data
 
 def write_articles_line(name, f):
-	f.write('<p><a class="button" href="#" onclick="loadcont(\'articles/' + name + '\', \'content\');">' + name.capitalize() + '</a></p>\n')
+	f.write('<a class="button" href="#' + name + '" onclick="loadcont(\'articles/' + name + '\', \'content\');">' + name.capitalize() + '</a>\n')
 	
 def article_input():
 	'''

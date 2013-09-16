@@ -24,6 +24,15 @@ function route(pathname, response) {
 		basicheaders.basic_404(response);
 		return;
 	}
+
+	// file dump
+	if (pathname == '/files') {
+		response.writeHead(200);
+		var files = fs.readdirSync(path.join(process.cwd(), "static\\files\\"));
+		for (var i in files)	response.write("<a href=\"/files/" + files[i] + "\">" + files[i] + "</a>\n");
+		response.end();
+		return;
+	}
  	
  	// check if file exists
     fs.exists(filename, function(exists) {  
