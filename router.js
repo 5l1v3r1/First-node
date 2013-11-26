@@ -10,17 +10,19 @@ var conversion_array = {
 	}
 
 // route to apropriate respondse
-function route(pathname, response) {
-	
+function route(pathname, domain, response) {
+	if (pathname == '404') { basicheaders.basic_404(response); return; }	// fast 404 for unknown domains/errors
+
 	// convert default pathnames
 	if (pathname in conversion_array)	pathname = conversion_array[pathname];
 
-	// apend request to static dir
-	var filename = path.resolve(path.join(process.cwd(), "static", pathname));
+	// apend request to static dir domain
+	dompath = path.join(basedir, domain);
+	var filename = path.resolve(path.join(dompath, pathname));
 
 	// checks for evil-doers
 	if (filename.substr(0, basedir.length) != basedir) {
-		l.logger.warn("Directory traversal attempt");
+		l.validlogger.warn("Directory traversal attempt");
 		basicheaders.basic_404(response);
 		return;
 	}
@@ -28,7 +30,7 @@ function route(pathname, response) {
 	// file dump
 	if (pathname == '/files') {
 		response.writeHead(200);
-		var files = fs.readdirSync(path.join(process.cwd(), "static\\files\\"));
+		var files = fs.readdirSync(path.join(dompath, "files"));
 		for (var i in files)	response.write("<a href=\"/files/" + files[i] + "\">" + files[i] + "</a>\n");
 		response.end();
 		return;
@@ -48,6 +50,7 @@ function route(pathname, response) {
 		            if(err) {	basicheaders.basic_500(response, err);	return;	}
 		            // file exists in static dir and is not a dir
 		            else {
+		            	
 		            	response.writeHead(200);  
 		            	response.write(file, "binary");  
 		            	response.end();

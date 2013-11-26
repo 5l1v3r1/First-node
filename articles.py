@@ -75,7 +75,7 @@ def remove_article(name):
 	# Write articles file without the article
 	f = open('static/articles/articles','w')
 	for line in data:
-		if 'static/articles/' + name in line:
+		if 'articles/' + name in line:
 			continue
 		f.write(line)
 
